@@ -189,7 +189,7 @@ function sitePlugin(): Plugin {
         .replace('<!--@JSONLD-->', jsonLdMarkup())
         .replace('<!--@COPY-->', copyMarkup())
         .replace('<!--@DOCK-->', dockMarkup())
-        .replace(/__TITLE__/g, escapeHtml(`${site.name} — ${site.tagline}`));
+        .replace(/__TITLE__/g, escapeHtml(site.name));
     },
     generateBundle() {
       this.emitFile({ type: 'asset', fileName: '_headers', source: headersFile() });
