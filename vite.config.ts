@@ -164,9 +164,11 @@ function headersFile(): string {
   Content-Security-Policy: ${csp}
 
 /assets/*
+  Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=31536000, immutable
 
 /media/*
+  Access-Control-Allow-Origin: *
   Cache-Control: public, max-age=604800, stale-while-revalidate=86400
 
 /favicon.svg

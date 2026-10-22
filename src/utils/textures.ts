@@ -4,21 +4,41 @@ import * as THREE from 'three';
  * Loads the first URL that decodes successfully. Used for the portrait so we
  * can ship AVIF → WebP → PNG without a build-time format negotiation.
  */
-export function loadTexture(urls: readonly string[]): Promise<THREE.Texture> {
+export function loadTexture(urls: readonly string[], timeoutMs = 4000): Promise<THREE.Texture> {
   return new Promise((resolve, reject) => {
     let index = 0;
+    let timer = 0;
+    let settled = false;
 
     const attempt = () => {
+      if (settled) return;
       if (index >= urls.length) {
+        settled = true;
+        clearTimeout(timer);
         reject(new Error(`Could not load any of: ${urls.join(', ')}`));
         return;
       }
+
+      clearTimeout(timer);
       const url = urls[index++];
-      new THREE.TextureLoader().load(
+
+      timer = window.setTimeout(() => {
+        if (!settled) attempt();
+      }, timeoutMs);
+
+      const loader = new THREE.TextureLoader();
+      loader.load(
         url,
-        (texture) => resolve(texture),
+        (texture) => {
+          if (settled) return;
+          settled = true;
+          clearTimeout(timer);
+          resolve(texture);
+        },
         undefined,
-        () => attempt(),
+        () => {
+          if (!settled) attempt();
+        },
       );
     };
 
