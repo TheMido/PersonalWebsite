@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.wrangler/
+models/
+*.onnx
+screenshots/
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+*.local

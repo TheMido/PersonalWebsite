@@ -1,0 +1,39 @@
+{
+  "name": "mohammad-taheri",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Personal website for Mohammad Taheri — Computer Vision & Machine Learning Engineer.",
+  "author": "Mohammad Taheri",
+  "scripts": {
+    "dev": "vite",
+    "prebuild": "node scripts/sync-fonts.mjs",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "optimize:images": "node scripts/optimize-images.mjs",
+    "deploy": "npm run build && wrangler deploy",
+    "deploy:pages": "npm run build && wrangler pages deploy dist --project-name mohammadt"
+  },
+  "dependencies": {
+    "@fontsource/jetbrains-mono": "^5.2.6",
+    "@fontsource/space-grotesk": "^5.2.9",
+    "three": "^0.181.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "@types/three": "^0.181.0",
+    "lighthouse": "^13.5.0",
+    "playwright-core": "^1.64.1",
+    "sharp": "^0.34.4",
+    "typescript": "^5.9.3",
+    "vite": "^7.1.9",
+    "wrangler": "^4.40.0"
+  },
+  "allowScripts": {
+    "sharp@0.35.5": true,
+    "sharp@0.34.5": true,
+    "esbuild@0.28.2": true,
+    "workerd@1.20261019.1": true
+  }
+}
